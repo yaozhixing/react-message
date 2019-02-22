@@ -7,7 +7,7 @@ import 'semantic-ui/dist/semantic.min.css';
 import CommentBox from './components/CommentBox';
 
 ReactDOM.render(
-	<CommentBox />, 
+	<CommentBox url="comments.json" />, 
 	document.getElementById('root')
 );
 

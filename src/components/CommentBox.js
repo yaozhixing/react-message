@@ -3,23 +3,35 @@
 import React, { Component } from 'react';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
+import $ from 'jquery';
 
-var contents = [
-	{
-		'author': '校长', 'data': '5分钟前', 'text': '今天天气不错！'
-	},
-	{
-		'author': '小李', 'data': '3分钟前', 'text': '那我们一起出去玩吧！'
-	}
-]
 
 class CommentBox extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			data: []
+		};
+		$.ajax({
+			url: this.props.url,
+			cache: false,
+			dataType: 'json',
+			success:res =>{
+				this.setState({
+					data: res
+				})
+			},
+			error:function(){
+				console.log("error")
+			},
+		})
+	}
 	render() {
 		return(
 			<div className="ui contents" style={{width: '60%', margin: '40px auto'}}>
 				<h1>评论</h1>
 				<div className="ui divider"></div>
-				<CommentList data={contents} />
+				<CommentList data={this.state.data}/>
 				<CommentForm />
 			</div>
 		)
